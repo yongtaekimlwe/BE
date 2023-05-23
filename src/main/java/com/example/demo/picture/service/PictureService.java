@@ -1,5 +1,8 @@
 package com.example.demo.picture.service;
 
+import com.example.demo.picture.domain.PictureBoard;
+import com.example.demo.picture.dto.NewPictureBoardRequest;
+import com.example.demo.picture.dto.NewPictureBoardResponse;
 import com.example.demo.picture.dto.PictureResponse;
 import com.example.demo.picture.dto.PicturesResponse;
 import com.example.demo.picture.repository.PictureBoardRepository;
@@ -31,5 +34,15 @@ public class PictureService {
     public Optional<PictureResponse> findPicture(int imageId) {
         return pictureBoardRepository.findById(imageId)
                 .map(PictureResponse::new);
+    }
+
+    @Transactional
+    public NewPictureBoardResponse createPictureBoard(NewPictureBoardRequest newPictureBoardRequest) {
+        PictureBoard pictureBoard = PictureBoard.builder()
+                .title(newPictureBoardRequest.getTitle())
+                .build();
+        //해시태그 설정 로직 필요
+        PictureBoard savePictureBoard = pictureBoardRepository.save(pictureBoard);
+        return new NewPictureBoardResponse(savePictureBoard);
     }
 }

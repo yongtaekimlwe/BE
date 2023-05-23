@@ -18,7 +18,14 @@ public class PictureBoard {
     @Column(name = "image_id")
     private int imageId;
 
-//    @ManyToOne
+    private String title;
+
+    private String content;
+
+    @Column(name="image_url")
+    private String imageUrl;
+
+    //    @ManyToOne
 //    @JoinColumn(name= "user_id")
 //    private User user;
 
@@ -33,14 +40,6 @@ public class PictureBoard {
             joinColumns = @JoinColumn(name = "image_board_image_id"),
             inverseJoinColumns = @JoinColumn(name = "hashtag_tag_id"))
     private List<HashTag> hashtags;
-
-
-    private String title;
-
-    private String content;
-
-    @Column(name="image_url")
-    private String imageUrl;
 
     public PictureBoard() {
     }
