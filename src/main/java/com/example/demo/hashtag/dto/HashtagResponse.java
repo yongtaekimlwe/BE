@@ -1,4 +1,4 @@
-package com.example.demo.picture.dto;
+package com.example.demo.hashtag.dto;
 
 import com.example.demo.picture.domain.Hashtag;
 import lombok.Getter;

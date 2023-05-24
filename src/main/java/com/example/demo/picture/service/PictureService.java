@@ -1,9 +1,11 @@
 package com.example.demo.picture.service;
 
+import com.example.demo.hashtag.dto.HashtagResponse;
+import com.example.demo.hashtag.service.HashtagService;
 import com.example.demo.picture.domain.Hashtag;
 import com.example.demo.picture.domain.PictureBoard;
 import com.example.demo.picture.dto.*;
-import com.example.demo.picture.repository.HashTagRepository;
+import com.example.demo.hashtag.repository.HashTagRepository;
 import com.example.demo.picture.repository.PictureBoardRepository;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.repository.UserRepository;
@@ -24,12 +26,15 @@ public class PictureService {
     private final PictureBoardRepository pictureBoardRepository;
     private final UserRepository userRepository;
     private final HashTagRepository hashTagRepository;
+
+    private final HashtagService hashtagService;
     Logger logger = LoggerFactory.getLogger(PictureService.class);
 
-    public PictureService(PictureBoardRepository pictureBoardRepository, UserRepository userRepository, HashTagRepository hashTagRepository) {
+    public PictureService(PictureBoardRepository pictureBoardRepository, UserRepository userRepository, HashTagRepository hashTagRepository, HashtagService hashtagService) {
         this.pictureBoardRepository = pictureBoardRepository;
         this.userRepository = userRepository;
         this.hashTagRepository = hashTagRepository;
+        this.hashtagService = hashtagService;
     }
 
     public PicturesResponse findPictures() {
@@ -44,8 +49,7 @@ public class PictureService {
         Optional<PictureBoard> pictureBoardOptional = pictureBoardRepository.findByIdWithHashTags(imageId);
         if (pictureBoardOptional.isPresent()) {
             PictureBoard pictureBoard = pictureBoardOptional.get();
-            List<HashtagResponse> hashtagsResponse = this.getHashtagResponses(pictureBoard.getHashtags());
-
+            List<HashtagResponse> hashtagsResponse = hashtagService.getHashtagResponses(pictureBoard.getHashtags());
             return Optional.of(PictureDetailResponse.of(pictureBoard.getImageId(),
                     pictureBoard.getUser().getId(),
                     pictureBoard.getTitle(),
@@ -54,12 +58,6 @@ public class PictureService {
                     hashtagsResponse));
         }
         return Optional.empty();
-    }
-
-    private List<HashtagResponse> getHashtagResponses(List<Hashtag> hashtags) {
-        return hashtags.stream()
-                .map(hashtag -> new HashtagResponse(hashtag.getTagName(), hashtag.getTagIcon()))
-                .collect(Collectors.toList());
     }
 
     @Transactional

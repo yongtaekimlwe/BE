@@ -1,4 +1,4 @@
-package com.example.demo.picture.repository;
+package com.example.demo.hashtag.repository;
 
 import com.example.demo.picture.domain.Hashtag;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,5 +1,6 @@
 package com.example.demo.picture.dto;
 
+import com.example.demo.hashtag.dto.HashtagResponse;
 import lombok.Builder;
 import lombok.Getter;
 
