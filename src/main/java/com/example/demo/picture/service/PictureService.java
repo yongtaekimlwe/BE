@@ -1,18 +1,16 @@
 package com.example.demo.picture.service;
 
-import com.example.demo.picture.domain.HashTag;
+import com.example.demo.picture.domain.Hashtag;
 import com.example.demo.picture.domain.PictureBoard;
-import com.example.demo.picture.dto.NewPictureBoardRequest;
-import com.example.demo.picture.dto.NewPictureBoardResponse;
-import com.example.demo.picture.dto.PictureResponse;
-import com.example.demo.picture.dto.PicturesResponse;
+import com.example.demo.picture.dto.*;
 import com.example.demo.picture.repository.HashTagRepository;
 import com.example.demo.picture.repository.PictureBoardRepository;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,8 +21,8 @@ public class PictureService {
 
     private final PictureBoardRepository pictureBoardRepository;
     private final UserRepository userRepository;
-
     private final HashTagRepository hashTagRepository;
+    Logger logger = LoggerFactory.getLogger(PictureService.class);
 
     public PictureService(PictureBoardRepository pictureBoardRepository, UserRepository userRepository, HashTagRepository hashTagRepository) {
         this.pictureBoardRepository = pictureBoardRepository;
@@ -40,24 +38,41 @@ public class PictureService {
         return new PicturesResponse(pictureResponses);
     }
 
-    public Optional<PictureResponse> findPicture(int imageId) {
-        return pictureBoardRepository.findById(imageId)
-                .map(PictureResponse::new);
+    public Optional<PictureDetailResponse> findPicture(int imageId) {
+        Optional<PictureBoard> pictureBoardOptional = pictureBoardRepository.findByIdWithHashTags(imageId);
+        if (pictureBoardOptional.isPresent()) {
+            PictureBoard pictureBoard = pictureBoardOptional.get();
+            List<HashtagResponse> hashtagsResponse = this.getHashtagResponses(pictureBoard.getHashtags());
+
+            return Optional.of(PictureDetailResponse.of(pictureBoard.getImageId(),
+                    pictureBoard.getUser().getId(),
+                    pictureBoard.getTitle(),
+                    pictureBoard.getContent(),
+                    pictureBoard.getImageUrl(),
+                    hashtagsResponse));
+        }
+        return Optional.empty();
+    }
+
+    private List<HashtagResponse> getHashtagResponses(List<Hashtag> hashtags) {
+        return hashtags.stream()
+                .map(hashtag -> new HashtagResponse(hashtag.getTagName(), hashtag.getTagIcon()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
     public NewPictureBoardResponse createPictureBoard(NewPictureBoardRequest newPictureBoardRequest) {
         Optional<User> userOptional = userRepository.findById(newPictureBoardRequest.getUserId());
-        List<HashTag> hashTags = hashTagRepository.findAllById(newPictureBoardRequest.getHashtags());
+        List<Hashtag> hashtags = hashTagRepository.findAllById(newPictureBoardRequest.getHashtags());
 
-        if(userOptional.isPresent() && hashTags.size() == newPictureBoardRequest.getHashtags().size()) {
+        if(userOptional.isPresent() && hashtags.size() == newPictureBoardRequest.getHashtags().size()) {
             User user = userOptional.get();
             PictureBoard pictureBoard = PictureBoard.builder()
                     .title(newPictureBoardRequest.getTitle())
                     .content(newPictureBoardRequest.getContent())
                     .imageUrl(newPictureBoardRequest.getImageUrl())
                     .user(user)
-                    .hashtags(hashTags)
+                    .hashtags(hashtags)
                     .build();
             //해시태그 설정 로직 필요
             PictureBoard savePictureBoard = pictureBoardRepository.save(pictureBoard);
@@ -65,6 +80,12 @@ public class PictureService {
         } else {
             return new NewPictureBoardResponse(-1);
         }
+    }
+
+    @Transactional
+    public void updatePictureBoard(int imageId, PictureBoardUpdateRequest pictureBoardUpdateRequest) {
+        //imageId가 존재하는 게시글인지 검증 유무, pictureBoardUpdateRequest 내용에 맞게 적용
+        Optional<PictureBoard> pictureBoard = pictureBoardRepository.findById(imageId);
     }
 
     @Transactional

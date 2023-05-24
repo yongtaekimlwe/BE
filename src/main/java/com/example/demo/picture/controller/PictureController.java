@@ -1,9 +1,6 @@
 package com.example.demo.picture.controller;
 
-import com.example.demo.picture.dto.NewPictureBoardRequest;
-import com.example.demo.picture.dto.NewPictureBoardResponse;
-import com.example.demo.picture.dto.PictureResponse;
-import com.example.demo.picture.dto.PicturesResponse;
+import com.example.demo.picture.dto.*;
 import com.example.demo.picture.service.PictureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +28,9 @@ public class PictureController {
     }
 
     @GetMapping(path = "/{imageId}")
-    public ResponseEntity<Optional<PictureResponse>> findPictureById(@PathVariable("imageId") int imageId) {
-        Optional<PictureResponse> pictureResponse = pictureService.findPicture(imageId);
+    public ResponseEntity<Optional<PictureDetailResponse>> findPictureById(@PathVariable("imageId") int imageId) {
+        Optional<PictureDetailResponse> pictureResponse = pictureService.findPicture(imageId);
+        logger.debug("사진 공유 글 상세보기 ", pictureResponse);
         return ResponseEntity.ok(pictureResponse);
     }
 
@@ -41,6 +39,13 @@ public class PictureController {
         logger.debug("Post 객체 확인", newPictureBoardRequest);
         NewPictureBoardResponse pictureBoard = pictureService.createPictureBoard(newPictureBoardRequest);
         return ResponseEntity.created(URI.create("/picture/" + pictureBoard.getImageId())).build();
+    }
+
+    //사진공유 글 수정
+    @PutMapping(path = "/{imageId}")
+    public ResponseEntity<Void> updatePictureBoard(@PathVariable("imageId") int imageId,
+                                                   @Valid @RequestBody PictureBoardUpdateRequest pictureBoardUpdateRequest) {
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(path = "/{imageId}")

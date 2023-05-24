@@ -34,7 +34,7 @@ public class PictureBoard {
             name = "image_board_hashtag",
             joinColumns = @JoinColumn(name = "image_board_image_id"),
             inverseJoinColumns = @JoinColumn(name = "hashtag_tag_id"))
-    private List<HashTag> hashtags = new ArrayList<>();
+    private List<Hashtag> hashtags = new ArrayList<>();
 
     @ManyToMany(mappedBy = "likedImages", cascade = CascadeType.ALL)
     private List<User> likedByUsers;
@@ -43,7 +43,7 @@ public class PictureBoard {
     }
 
     @Builder
-    public PictureBoard(int imageId, String title, String content, String imageUrl, User user, List<HashTag> hashtags, List<User> likedByUsers) {
+    public PictureBoard(int imageId, String title, String content, String imageUrl, User user, List<Hashtag> hashtags, List<User> likedByUsers) {
         this.imageId = imageId;
         this.title = title;
         this.content = content;
@@ -51,5 +51,18 @@ public class PictureBoard {
         this.user = user;
         this.hashtags = hashtags;
         this.likedByUsers = likedByUsers;
+    }
+
+    @Override
+    public String toString() {
+        return "PictureBoard{" +
+                "imageId=" + imageId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", user=" + user +
+                ", hashtags=" + hashtags.toString() +
+                ", likedByUsers=" + likedByUsers +
+                '}';
     }
 }
