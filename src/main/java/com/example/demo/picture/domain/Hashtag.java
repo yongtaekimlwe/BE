@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Entity(name = "hashtag")
-public class HashTag {
+public class Hashtag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "tag_id")
@@ -23,10 +23,10 @@ public class HashTag {
     @ManyToMany(mappedBy = "hashtags")
     private List<PictureBoard> imageBoards;
 
-    public HashTag() { }
+    public Hashtag() { }
 
     @Builder
-    public HashTag(int tagId, String tagName, String tagIcon) {
+    public Hashtag(int tagId, String tagName, String tagIcon) {
         this.tagId = tagId;
         this.tagName = tagName;
         this.tagIcon = tagIcon;
