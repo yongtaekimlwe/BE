@@ -1,11 +1,13 @@
 package com.example.demo.user.domain;
 
+import com.example.demo.picture.domain.PictureBoard;
 import com.example.demo.user.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -27,6 +29,19 @@ public class User {
 
     @Column(name = "profile_img_src")
     private String imgSrc;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_image_like",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id")
+    )
+    private List<PictureBoard> likedImages;
+
+    @Builder
+    public User(int id) {
+        this.id = id;
+    }
 
     @Builder // Builder 클래스 자동 생성 > 생성자 대신 사용
     public User(String password, String name, String email, String imgSrc) {

@@ -40,6 +40,10 @@ public class PictureService {
     public NewPictureBoardResponse createPictureBoard(NewPictureBoardRequest newPictureBoardRequest) {
         PictureBoard pictureBoard = PictureBoard.builder()
                 .title(newPictureBoardRequest.getTitle())
+                .content(newPictureBoardRequest.getContent())
+                .imageUrl(newPictureBoardRequest.getImageUrl())
+                .userId(newPictureBoardRequest.getUserId())
+                .hashtags(newPictureBoardRequest.getHashtags())
                 .build();
         //해시태그 설정 로직 필요
         PictureBoard savePictureBoard = pictureBoardRepository.save(pictureBoard);

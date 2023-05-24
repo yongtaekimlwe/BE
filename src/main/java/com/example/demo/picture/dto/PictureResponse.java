@@ -21,5 +21,9 @@ public class PictureResponse {
 
     public PictureResponse(PictureBoard pictureBoard) {
         this.imageId = pictureBoard.getImageId();
+        this.userId = pictureBoard.getUser().getId();
+        this.title = pictureBoard.getTitle();
+        this.content = pictureBoard.getContent();
+        this.imageUrl = pictureBoard.getImageUrl();
     }
 }

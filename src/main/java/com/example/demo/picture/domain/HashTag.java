@@ -7,8 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Getter
-@Entity
-@Table(name = "hashtag")
+@Entity(name = "hashtag")
 public class HashTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +24,11 @@ public class HashTag {
     private List<PictureBoard> imageBoards;
 
     public HashTag() { }
+
+    @Builder
+    public HashTag(int tagId) {
+        this.tagId = tagId;
+    }
 
     @Builder
     public HashTag(String tagName, String tagIcon) {
