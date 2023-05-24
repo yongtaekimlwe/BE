@@ -1,5 +1,7 @@
-package com.example.demo.picture.domain;
+package com.example.demo.hashtag.domain;
 
+import com.example.demo.picture.domain.PictureBoard;
+import com.example.demo.route.domain.Route;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -20,10 +22,13 @@ public class Hashtag {
     @Column(name="tag_icon")
     private String tagIcon;
 
+    public Hashtag() { }
+
     @ManyToMany(mappedBy = "hashtags")
     private List<PictureBoard> imageBoards;
 
-    public Hashtag() { }
+    @ManyToMany(mappedBy = "routeHashtags")
+    private List<Route> routes;
 
     @Builder
     public Hashtag(int tagId, String tagName, String tagIcon) {

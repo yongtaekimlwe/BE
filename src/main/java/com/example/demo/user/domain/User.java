@@ -1,6 +1,7 @@
 package com.example.demo.user.domain;
 
 import com.example.demo.picture.domain.PictureBoard;
+import com.example.demo.route.domain.Route;
 import com.example.demo.user.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,6 +39,22 @@ public class User {
     )
     private List<PictureBoard> likedImages;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_route_participate",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "route_id")
+    )
+    private List<Route> routeParticipants;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_route_like",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "route_id")
+    )
+    private List<Route> likedRoutes;
+
     @Builder
     public User(int id) {
         this.id = id;
@@ -51,7 +68,4 @@ public class User {
         this.imgSrc = imgSrc;
     }
 
-    public UserDto toDto(User entity) {
-        return new UserDto(entity.id, entity.name, entity.password,entity.email,entity.imgSrc);
-    }
 }

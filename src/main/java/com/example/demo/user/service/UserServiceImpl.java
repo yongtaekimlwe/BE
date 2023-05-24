@@ -24,10 +24,9 @@ public class UserServiceImpl implements UserService {
 
         if(user == null) {
             user = new User("", profile.getKakao_account().getProfile().getNickname(), profile.getKakao_account().getEmail(), profile.getKakao_account().getProfile().getProfile_image_url());
+            userRepository.save(user);
         }
 
-        userRepository.save(user);
-
-        return user.toDto(user);
+        return new UserDto(user);
     }
 }
