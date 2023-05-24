@@ -37,6 +37,6 @@ public class User {
     }
 
     public UserDto toDto(User entity) {
-        return new UserDto(entity.id, entity.name, entity.password,entity.email,entity.imgSrc);
+        return new UserDto(entity.id, entity.password, entity.name, entity.email, entity.imgSrc);
     }
 }
