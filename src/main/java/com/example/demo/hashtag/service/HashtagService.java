@@ -1,7 +1,7 @@
 package com.example.demo.hashtag.service;
 
 import com.example.demo.hashtag.dto.HashtagResponse;
-import com.example.demo.picture.domain.Hashtag;
+import com.example.demo.hashtag.domain.Hashtag;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

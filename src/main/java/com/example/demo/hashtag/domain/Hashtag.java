@@ -1,5 +1,6 @@
-package com.example.demo.picture.domain;
+package com.example.demo.hashtag.domain;
 
+import com.example.demo.picture.domain.PictureBoard;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -2,7 +2,7 @@ package com.example.demo.picture.service;
 
 import com.example.demo.hashtag.dto.HashtagResponse;
 import com.example.demo.hashtag.service.HashtagService;
-import com.example.demo.picture.domain.Hashtag;
+import com.example.demo.hashtag.domain.Hashtag;
 import com.example.demo.picture.domain.PictureBoard;
 import com.example.demo.picture.dto.*;
 import com.example.demo.hashtag.repository.HashTagRepository;
