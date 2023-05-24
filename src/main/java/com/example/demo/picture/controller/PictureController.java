@@ -43,5 +43,9 @@ public class PictureController {
         return ResponseEntity.created(URI.create("/picture/" + pictureBoard.getImageId())).build();
     }
 
-    //image_board, image_board_comment, image_board_hashtag, hashtag, user_image_like
+    @DeleteMapping(path = "/{imageId}")
+    public ResponseEntity<Void> deletePictureBoard(@PathVariable("imageId") int imageId) {
+        pictureService.deletePictureBoard(imageId);
+        return ResponseEntity.noContent().build();
+    }
 }

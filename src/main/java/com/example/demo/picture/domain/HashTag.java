@@ -26,12 +26,8 @@ public class HashTag {
     public HashTag() { }
 
     @Builder
-    public HashTag(int tagId) {
+    public HashTag(int tagId, String tagName, String tagIcon) {
         this.tagId = tagId;
-    }
-
-    @Builder
-    public HashTag(String tagName, String tagIcon) {
         this.tagName = tagName;
         this.tagIcon = tagIcon;
     }

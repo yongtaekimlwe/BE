@@ -6,9 +6,8 @@ import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Entity(name="image_board")
@@ -30,28 +29,27 @@ public class PictureBoard {
     @JoinColumn(name= "user_id")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "image_board_hashtag",
             joinColumns = @JoinColumn(name = "image_board_image_id"),
             inverseJoinColumns = @JoinColumn(name = "hashtag_tag_id"))
-    private Set<HashTag> hashtags;
+    private List<HashTag> hashtags = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "likedImages")
+    @ManyToMany(mappedBy = "likedImages", cascade = CascadeType.ALL)
     private List<User> likedByUsers;
 
     public PictureBoard() {
     }
+
     @Builder
-    public PictureBoard(String title, String content, String imageUrl, int userId, List<Integer> hashtags) {
+    public PictureBoard(int imageId, String title, String content, String imageUrl, User user, List<HashTag> hashtags, List<User> likedByUsers) {
+        this.imageId = imageId;
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
-        this.user = User.builder().id(userId).build();
-        this.hashtags = new HashSet<>();
-
-        for (int tagId : hashtags) {
-            this.hashtags.add(HashTag.builder().tagId(tagId).build());
-        }
+        this.user = user;
+        this.hashtags = hashtags;
+        this.likedByUsers = likedByUsers;
     }
 }
