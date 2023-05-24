@@ -63,4 +63,13 @@ public class CommentService {
             commentRepository.save(comment);
         }
     }
+
+    @Transactional
+    public void deleteComment(int commentId) {
+        Optional<Comment> comment = commentRepository.findById(commentId);
+        if (comment.isPresent()) {
+            logger.debug("댓글 존재해서 삭제될 예정");
+            commentRepository.delete(comment.get());
+        }
+    }
 }
