@@ -45,6 +45,7 @@ public class PictureController {
     @PutMapping(path = "/{imageId}")
     public ResponseEntity<Void> updatePictureBoard(@PathVariable("imageId") int imageId,
                                                    @Valid @RequestBody PictureBoardUpdateRequest pictureBoardUpdateRequest) {
+        pictureService.updatePictureBoard(imageId, pictureBoardUpdateRequest);
         return ResponseEntity.noContent().build();
     }
 

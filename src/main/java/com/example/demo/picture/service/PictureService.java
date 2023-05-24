@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -85,7 +87,18 @@ public class PictureService {
     @Transactional
     public void updatePictureBoard(int imageId, PictureBoardUpdateRequest pictureBoardUpdateRequest) {
         //imageId가 존재하는 게시글인지 검증 유무, pictureBoardUpdateRequest 내용에 맞게 적용
-        Optional<PictureBoard> pictureBoard = pictureBoardRepository.findById(imageId);
+        PictureBoard pictureBoard = pictureBoardRepository.findById(imageId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 게시물"));
+
+        List<Hashtag> hashtags = hashTagRepository.findAllById(pictureBoardUpdateRequest.getHashtags());
+
+        pictureBoard.updateTitle(pictureBoardUpdateRequest.getTitle());
+        pictureBoard.updateContent(pictureBoardUpdateRequest.getContent());
+        pictureBoard.updateImageUrl(pictureBoard.getImageUrl());
+
+        pictureBoard.getHashtags().clear();
+        pictureBoard.getHashtags().addAll(hashtags);
+        pictureBoardRepository.save(pictureBoard);
     }
 
     @Transactional

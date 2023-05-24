@@ -39,6 +39,22 @@ public class PictureBoard {
     @ManyToMany(mappedBy = "likedImages", cascade = CascadeType.ALL)
     private List<User> likedByUsers;
 
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void updateHashtags(List<Hashtag> hashtags) {
+        this.hashtags = hashtags;
+    }
+
     public PictureBoard() {
     }
 
@@ -51,18 +67,5 @@ public class PictureBoard {
         this.user = user;
         this.hashtags = hashtags;
         this.likedByUsers = likedByUsers;
-    }
-
-    @Override
-    public String toString() {
-        return "PictureBoard{" +
-                "imageId=" + imageId +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", user=" + user +
-                ", hashtags=" + hashtags.toString() +
-                ", likedByUsers=" + likedByUsers +
-                '}';
     }
 }
