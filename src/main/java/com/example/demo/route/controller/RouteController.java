@@ -2,7 +2,6 @@ package com.example.demo.route.controller;
 
 import com.example.demo.route.dto.BriefRouteInfo;
 import com.example.demo.route.dto.DetailRouteInfo;
-import com.example.demo.route.dto.RouteDto;
 import com.example.demo.route.service.RouteService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/route")
