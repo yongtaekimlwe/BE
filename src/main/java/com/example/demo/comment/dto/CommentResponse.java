@@ -8,17 +8,19 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CommentResponse {
+    private final int commendId;
     private final String nickname;
     private final String content;
     private final LocalDateTime createdAt;
 
-    public CommentResponse(String nickname, String content, LocalDateTime createdAt) {
+    public CommentResponse(int commendId, String nickname, String content, LocalDateTime createdAt) {
+        this.commendId = commendId;
         this.nickname = nickname;
         this.content = content;
         this.createdAt = createdAt;
     }
 
     public static CommentResponse of(User user, Comment comment) {
-        return new CommentResponse(user.getName(), comment.getComment(), comment.getCreatedAt());
+        return new CommentResponse(comment.getCommentId(), user.getName(), comment.getComment(), comment.getCreatedAt());
     }
 }
