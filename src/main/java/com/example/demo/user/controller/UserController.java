@@ -1,5 +1,6 @@
 package com.example.demo.user.controller;
 
+import com.example.demo.user.domain.User;
 import com.example.demo.user.dto.OauthToken;
 import com.example.demo.user.dto.UserDto;
 import com.example.demo.user.service.JwtService;
@@ -94,6 +95,17 @@ public class UserController {
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
-}
 
+    @PostMapping("/update")
+    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
+        userService.updateInfo(userDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable int userId){
+        userService.deleteUser(userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+}
 
