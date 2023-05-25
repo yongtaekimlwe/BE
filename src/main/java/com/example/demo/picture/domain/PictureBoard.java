@@ -1,5 +1,6 @@
 package com.example.demo.picture.domain;
 
+import com.example.demo.comment.domain.Comment;
 import com.example.demo.hashtag.domain.Hashtag;
 import com.example.demo.user.domain.User;
 import lombok.Builder;
@@ -36,6 +37,12 @@ public class PictureBoard {
             joinColumns = @JoinColumn(name = "image_board_image_id"),
             inverseJoinColumns = @JoinColumn(name = "hashtag_tag_id"))
     private List<Hashtag> hashtags = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "image_board_comment",
+    joinColumns = @JoinColumn(name = "image_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<Comment> comments;
 
     @ManyToMany(mappedBy = "likedImages", cascade = CascadeType.ALL)
     private List<User> likedByUsers;

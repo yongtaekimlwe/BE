@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CommentResponse {
-    private final int commendId;
+    private final int commentId;
     private final String nickname;
     private final String content;
     private final LocalDateTime createdAt;
 
-    public CommentResponse(int commendId, String nickname, String content, LocalDateTime createdAt) {
-        this.commendId = commendId;
+    public CommentResponse(int commentId, String nickname, String content, LocalDateTime createdAt) {
+        this.commentId = commentId;
         this.nickname = nickname;
         this.content = content;
         this.createdAt = createdAt;
