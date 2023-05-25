@@ -1,6 +1,5 @@
 package com.example.demo.user.controller;
 
-import com.example.demo.user.domain.User;
 import com.example.demo.user.dto.OauthToken;
 import com.example.demo.user.dto.UserDto;
 import com.example.demo.user.service.JwtService;
@@ -36,6 +35,7 @@ public class UserController {
 
         // 넘어온 인가 코드를 통해 access token 발급
         OauthToken oauthToken = oAuthService.getAccessToken(code);
+
 
         // 발급 받은 accessToken으로 카카오 회원 정보 DB 저장
         UserDto user = userService.saveUser(oauthToken.getAccess_token());
@@ -107,5 +107,6 @@ public class UserController {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
 

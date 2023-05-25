@@ -18,5 +18,5 @@ public class WebConfig implements WebMvcConfigurer {
                         HttpMethod.PATCH.name())
                 .maxAge(1800);
     }
-
 }
+

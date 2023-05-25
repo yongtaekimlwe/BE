@@ -1,5 +1,4 @@
 package com.example.demo.user.service;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
@@ -37,7 +36,6 @@ public class JwtServiceImpl implements JwtService {
     private byte[] generateKey() {
         byte[] key = null;
         try {
-            System.out.println(SALT);
             key = SALT.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             if (logger.isInfoEnabled()) {
