@@ -12,9 +12,9 @@ import java.util.Map;
 public interface RouteFriendRepository extends JpaRepository<Route, Integer> {
 
     @Query(
-            value = "SELECT user_name as name, user_email as email, profile_img_src as img " +
+            value = "SELECT user_id as id, user_name as name, user_email as email, profile_img_src as img " +
                     "FROM USER " +
-                    "WHERE user_email like %:email%",
+                    "WHERE user_email like :email%",
             nativeQuery = true)
     List<Map<String, String>> searchUserByEmail(@Param("email") String email);
 

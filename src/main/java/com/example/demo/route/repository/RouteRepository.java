@@ -18,7 +18,7 @@ public interface RouteRepository extends JpaRepository<Route, Integer> {
     int countLikes(@Param("routeId") int routeId);
 
     @Query(
-            value = "SELECT h.tag_name as tagName, h.tag_icon as tagIcon FROM hashtag h INNER JOIN route_hashtag rh ON h.tag_id = rh.tag_id WHERE rh.route_id = :routeId",
+            value = "SELECT h.tag_id as tagId, h.tag_name as tagName, h.tag_icon as tagIcon FROM hashtag h INNER JOIN route_hashtag rh ON h.tag_id = rh.tag_id WHERE rh.route_id = :routeId",
             nativeQuery = true)
     List<Map<String, String>> getHashtags(@Param("routeId") int routeId);
 

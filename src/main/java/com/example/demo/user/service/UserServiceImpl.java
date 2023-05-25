@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         }
 
-        return new UserDto(user);
+        return new UserDto(user.getId(), user.getPassword(), user.getName(), user.getEmail(), user.getImgSrc());
     }
 
     @Override
