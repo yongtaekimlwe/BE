@@ -46,6 +46,7 @@ public class RouteServiceImpl implements RouteService{
         List<BriefRouteInfo> res = new ArrayList<>();
         for(RouteDto li : list) {
             BriefRouteInfo bri = new BriefRouteInfo();
+            bri.setRouteId(li.getId());
             bri.setTitle(li.getTitle());
             bri.setUserName(li.getUser().getName());
 
@@ -66,12 +67,19 @@ public class RouteServiceImpl implements RouteService{
         return res;
     }
 
+    // id, 제목, 작성자, 좋아요 수, 태그
     // 내용, 같이 여행 가는 사람, 관광지 목록 추가 제공
     @Override
     public DetailRouteInfo getRoute(int routeId) {
         DetailRouteInfo route = new DetailRouteInfo();
-        // 내용
-        route.setContent(routeRepository.getContent(routeId));
+
+        Route routeInfo = routeRepository.findById(routeId).orElse(new Route());
+        route.setRouteId(routeId);
+        route.setTitle(routeInfo.getTitle());
+        route.setContent(routeInfo.getContent());
+        route.setUserName(routeInfo.getUser().getName());
+        route.setLikes(routeRepository.countLikes(routeId));
+        route.setHashtags(routeRepository.getHashtags(routeId));
         // 같이 가는 친구들
         List<UserDto> parts = new ArrayList<>();
         for (Map<String, String> part : routeRepository.getParticipants(routeId)) {

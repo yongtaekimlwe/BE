@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BriefRouteInfo {
+    private int routeId;
     private String title;
     private String userName;
     private int likes;
