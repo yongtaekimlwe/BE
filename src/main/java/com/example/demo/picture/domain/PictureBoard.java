@@ -1,5 +1,6 @@
 package com.example.demo.picture.domain;
 
+import com.example.demo.hashtag.domain.Hashtag;
 import com.example.demo.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;

@@ -2,10 +2,10 @@ package com.example.demo.picture.service;
 
 import com.example.demo.hashtag.dto.HashtagResponse;
 import com.example.demo.hashtag.service.HashtagService;
-import com.example.demo.picture.domain.Hashtag;
+import com.example.demo.hashtag.domain.Hashtag;
 import com.example.demo.picture.domain.PictureBoard;
 import com.example.demo.picture.dto.*;
-import com.example.demo.hashtag.repository.HashTagRepository;
+import com.example.demo.hashtag.repository.HashtagRepository;
 import com.example.demo.picture.repository.PictureBoardRepository;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.repository.UserRepository;
@@ -25,12 +25,12 @@ public class PictureService {
 
     private final PictureBoardRepository pictureBoardRepository;
     private final UserRepository userRepository;
-    private final HashTagRepository hashTagRepository;
+    private final HashtagRepository hashTagRepository;
 
     private final HashtagService hashtagService;
     Logger logger = LoggerFactory.getLogger(PictureService.class);
 
-    public PictureService(PictureBoardRepository pictureBoardRepository, UserRepository userRepository, HashTagRepository hashTagRepository, HashtagService hashtagService) {
+    public PictureService(PictureBoardRepository pictureBoardRepository, UserRepository userRepository, HashtagRepository hashTagRepository, HashtagService hashtagService) {
         this.pictureBoardRepository = pictureBoardRepository;
         this.userRepository = userRepository;
         this.hashTagRepository = hashTagRepository;
