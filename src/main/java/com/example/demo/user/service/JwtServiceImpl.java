@@ -23,8 +23,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtServiceImpl implements JwtService {
     public static final Logger logger = LoggerFactory.getLogger(JwtServiceImpl.class);
 
-    @Value("${SALT}")
-    private static String SALT;
+    private static String SALT = "BonVoyage";
     private static final int EXPIRE_MINUTES = 60;
 
     @Override
@@ -38,6 +37,7 @@ public class JwtServiceImpl implements JwtService {
     private byte[] generateKey() {
         byte[] key = null;
         try {
+            System.out.println(SALT);
             key = SALT.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             if (logger.isInfoEnabled()) {
