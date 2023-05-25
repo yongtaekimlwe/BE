@@ -1,11 +1,7 @@
 package com.example.demo.picture.dto;
 
-import com.example.demo.hashtag.dto.HashtagResponse;
 import com.example.demo.picture.domain.PictureBoard;
 import lombok.Getter;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class PictureResponse {
@@ -14,7 +10,6 @@ public class PictureResponse {
     private String title;
     private String content;
     private String imageUrl;
-    private  List<HashtagResponse> hashtags;
 
     public PictureResponse(int imageId, int userId, String title, String content, String imageUrl) {
         this.imageId = imageId;
@@ -30,8 +25,5 @@ public class PictureResponse {
         this.title = pictureBoard.getTitle();
         this.content = pictureBoard.getContent();
         this.imageUrl = pictureBoard.getImageUrl();
-        this.hashtags = pictureBoard.getHashtags()
-                .stream()
-                .map(HashtagResponse::new).collect(Collectors.toList());
     }
 }
