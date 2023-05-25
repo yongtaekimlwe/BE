@@ -1,10 +1,7 @@
 package com.example.demo.hashtag.domain;
 
 import com.example.demo.picture.domain.PictureBoard;
-<<<<<<< HEAD:src/main/java/com/example/demo/hashtag/domain/Hashtag.java
-=======
 import com.example.demo.route.domain.Route;
->>>>>>> feature/4:src/main/java/com/example/demo/picture/domain/Hashtag.java
 import lombok.Builder;
 import lombok.Getter;
 

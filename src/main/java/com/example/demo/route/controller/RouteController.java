@@ -2,10 +2,12 @@ package com.example.demo.route.controller;
 
 import com.example.demo.route.dto.BriefRouteInfo;
 import com.example.demo.route.dto.DetailRouteInfo;
+import com.example.demo.route.dto.RouteDto;
 import com.example.demo.route.service.RouteService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,11 +40,12 @@ public class RouteController {
         return ResponseEntity.ok(route);
     }
 //
-//    // 여행 경로 생성
-//    @PostMapping
-//    public ResponseEntity<> createRoute(@RequestBody RouteDto routeDto) {
-//        return null;
-//    }
+    // 여행 경로 생성
+    @PostMapping
+    public ResponseEntity<Integer> createRoute(@RequestBody RouteDto routeDto) {
+        int id = routeService.saveRoute(routeDto.getId(), routeDto.getTitle(), routeDto.getContent());
+        return new ResponseEntity(id, HttpStatus.OK);
+    }
 //
 //    // 여행 경로 수정
 //    @PutMapping
@@ -55,4 +58,6 @@ public class RouteController {
     public void deleteRoute(@PathVariable int routeId) {
         routeService.deleteRoute(routeId);
     }
+
+
 }

@@ -90,4 +90,9 @@ public class RouteServiceImpl implements RouteService{
         routeRepository.deleteById(routeId);
     }
 
+    public int saveRoute(int userId, String title, String content){
+        routeRepository.saveRoutes(userId, title, content);
+        return routeRepository.getId();
+    }
+
 }

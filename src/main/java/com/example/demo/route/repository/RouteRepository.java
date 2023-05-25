@@ -34,4 +34,14 @@ public interface RouteRepository extends JpaRepository<Route, Integer> {
                     "WHERE urp.route_id = :routeId",
             nativeQuery = true)
     List<Map<String, String>> getParticipants(@Param("routeId") int routeId);
+
+    @Query(
+            value = "INSERT INTO route(user_id, title, content) VALUES (:userId, :title, :content)",
+            nativeQuery = true)
+    void saveRoutes(int userId, String title, String content);
+
+    @Query(
+            value = "SELECT MAX(route_id) FROM route",
+            nativeQuery = true)
+    int getId();
 }
