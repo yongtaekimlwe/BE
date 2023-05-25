@@ -13,4 +13,18 @@ public class UserDto {
     private String name;
     private String email;
     private String imgSrc;
+
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.password = user.getPassword();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.imgSrc = user.getImgSrc();
+    }
+
+    public UserDto(String name, String email, String imgSrc) {
+        this.name = name;
+        this.email = email;
+        this.imgSrc = imgSrc;
+    }
 }

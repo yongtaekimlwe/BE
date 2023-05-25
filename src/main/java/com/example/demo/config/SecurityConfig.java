@@ -21,6 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/picture/**").permitAll()
+                .antMatchers("/route/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable();
@@ -29,4 +30,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
